@@ -68,7 +68,105 @@
 <meta name="format-detection" content="telephone=no"/>
 
 
+	
+    <style>
+        body { background-color: #f4f7f9; font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; }
+        
+        .bridge-container {
+            padding: 70px 40px;
+            text-align: center;
+            max-width: 650px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid #efefef;
+        }
+
+        /* 메인 제목: 크게 강조 */
+        .bridge-container h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #111;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        /* 설명 문구: 강조 */
+        .bridge-container p.main-text {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 45px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* CTA 버튼 */
+        .bridge-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background-color: #007bff;
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s ease-in-out;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+
+        .bridge-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* [수정] 하단 랜덤 문구: 10pt 설정 */
+        .ad-disclaimer {
+            font-size: 10pt; /* 요청하신 10포인트 적용 */
+            color: #555555; /* 진회색 유지 */
+            line-height: 1.6;
+            word-break: keep-all;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid #f0f0f0; /* 상단과 분리하는 구분선 */
+            opacity: 1; /* 글자가 잘 보이도록 투명도 해제 */
+        }
+    </style>
+
+    <div class="bridge-container">
+        <h1>잠시만 확인해주세요!</h1>
+
+        <p class="main-text">
+            성공적인 상담 신청을 위해 <br>
+            <strong>최종 페이지</strong>로 이동을 준비하고 있습니다.
+        </p>
+
+        <a href="https://directin.kr/?num=35445436" class="bridge-button">
+            상담 신청하러 가기
+        </a>
+
+        <p class="ad-disclaimer"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const disclaimers = [
+                "본 페이지는 소정의 제휴 수수료를 포함하고 있으며, 해당 콘텐츠는 광고주의 지원을 받아 제작되었습니다.",
+                "이 콘텐츠는 광고주와의 협력을 통해 제작되었으며, 파트너사로부터 소정의 수수료를 지원받을 수 있습니다.",
+                "본 페이지는 제휴 서비스를 포함하고 있습니다. 파트너사를 통해 제공되는 서비스 이용 시 일정액의 대가를 받을 수 있습니다."
+            ];
+
+            const randomIndex = Math.floor(Math.random() * disclaimers.length);
+            const disclaimerElement = document.querySelector('.ad-disclaimer');
+            disclaimerElement.textContent = disclaimers[randomIndex];
+        });
+    </script>
+
+
+	
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
 	
     <!-- Schema.org JSON-LD (ItemList for SEO) -->
     <script type="application/ld+json">
@@ -898,4 +996,5 @@ function setMetaTag(attrType, attrName, content) {
 <link rel="preload" href="https://static.cdninstagram.com/rsrc.php/v4/yY/r/Eil-fzuGz0e.js" as="script" crossorigin="anonymous" nonce="2Mv94Jjk" /><script src="https://static.cdninstagram.com/rsrc.php/v4/yY/r/Eil-fzuGz0e.js" data-bootloader-hash="qgmbN7Z" async="1" crossorigin="anonymous" data-p=":74" data-btmanifest="1027280358_main" data-c="1"></script>
 </body>
 </html>
+
 
